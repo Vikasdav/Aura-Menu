@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraMenu | The Revenue & Experience Platform</title>
+    <meta name="description" content="The platform for India's leading restaurants to increase revenue and elevate their brand with AI-driven visual menus, AR previews, and seamless POS integration.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        /*
+         * ===================================================================
+         * STYLESHEET FOR AURAMENU V8.0 (STRATEGIC INTELLIGENCE)
+         * ===================================================================
+         */
+
+        /* --- 1. Root Variables & Base Styles --- */
+        :root {
+            --color-dark-bg: #0A0A10;
+            --color-light-text: #F0F2F5;
+            --color-dim-text: #A8AABD;
+            --color-border: rgba(255, 255, 255, 0.1);
+            --gradient-start: #7F00FF; /* Electric Violet */
+            --gradient-end: #E100FF;   /* Shocking Pink */
+            --font-primary: 'Syne', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-secondary);
+            margin: 0;
+            background-color: var(--color-dark-bg);
+            color: var(--color-light-text);
+            overflow-x: hidden;
+            padding-top: 70px; /* Offset for fixed nav */
+        }
+        
+        /* Aurora & Spotlight Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at var(--x, 50%) var(--y, 50%), #7F00FF1A, transparent 30%),
+                radial-gradient(circle at calc(100% - var(--x, 50%)) calc(100% - var(--y, 50%)), #E100FF12, transparent 30%),
+                radial-gradient(circle at center, #0A0A10, #0A0A10 70%, #0A0A1000);
+            animation: aurora 20s linear infinite alternate;
+        }
+
+        @keyframes aurora {
+            from { background-position: 0% 0%, 0% 0%, 0% 0%; }
+            to { background-position: 100% 100%, 100% 100%, 0% 0%; }
+        }
+
+        /* --- 2. Typography & Utility Classes --- */
+        h1, h2, h3 { font-family: var(--font-primary); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; }
+        h1 { font-size: clamp(3rem, 7vw, 6rem); line-height: 1.1; }
+        h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 120px 20px; position: relative; z-index: 2; }
+        .section-subtitle { font-size: 1.1rem; color: var(--color-dim-text); max-width: 600px; margin: 20px auto 50px auto; text-align: center; }
+        
+        /* Animation utility */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* --- 3. Navigation Bar (Glassmorphism) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 16, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .nav-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-family: var(--font-primary);
+            font-weight: 800;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--color-light-text);
+        }
+        .nav-links a {
+            color: var(--color-dim-text);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--color-light-text);
+        }
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+        }
+
+
+        /* --- 4. Hero Section with Particles --- */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            margin-top: -70px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* --- 5. Call-to-Action Buttons --- */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            padding: 16px 32px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-button:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 10px 30px rgba(225, 0, 255, 0.2); }
+        .cta-button:disabled { background: #555; cursor: not-allowed; }
+        .cta-button.secondary { background: rgba(255,255,255,0.1); border: 1px solid var(--color-border); }
+        .cta-button.secondary:hover { background: rgba(255,255,255,0.15); border-color: var(--gradient-start); }
+
+
+        /* --- 6. Bento Grid & Animated SVGs --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 1fr; /* Make rows equal height */
+            gap: 20px;
+            margin-top: 50px;
+        }
+        .bento-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            display: flex; /* Flexbox for equal height content */
+            flex-direction: column; /* Stack content vertically */
+        }
+        .bento-card:hover { transform: translateY(-5px); }
+        .bento-card .icon { margin-bottom: 15px; }
+        .bento-card h3 { font-size: 1.5rem; margin: 0 0 10px 0; }
+        .bento-card p { color: var(--color-dim-text); line-height: 1.6; margin: 0; flex-grow: 1; /* Allow paragraph to grow */ }
+        
+        .bento-card.large { grid-column: span 2; }
+        .bento-card.tall { grid-row: span 2; }
+        
+        .animated-svg { width: 40px; height: 40px; stroke: var(--gradient-end); stroke-width: 1.5; fill: none; }
+        .animated-svg path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2s ease-in-out;
+        }
+        .bento-card.visible .animated-svg path {
+            stroke-dashoffset: 0;
+        }
+        
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.large, .bento-card.tall { grid-column: span 1; grid-row: span 1; }
+        }
+
+        /* --- 7. AI Sections (General) --- */
+        .ai-section-wrapper {
+            background: rgba(10, 10, 16, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid var(--color-border);
+        }
+        .ai-inputs { display: grid; gap: 20px; align-items: end; }
+        .ai-inputs input, .ai-inputs select, .ai-inputs textarea {
+            width: 100%;
+            background-color: var(--color-dark-bg);
+            border: 1px solid var(--color-border);
+            color: var(--color-light-text);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: var(--font-secondary);
+        }
+        .ai-output {
+            margin-top: 30px;
+            padding: 30px;
+            background: var(--color-dark-bg);
+            border-radius: 15px;
+            min-height: 150px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+        }
+        .ai-output.loading { opacity: 0.7; }
+        .ai-output h4 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            color: transparent;
+            background-clip: text;
+        }
+        .ai-output h5 {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 5px;
+        }
+        .ai-output ul { list-style-type: '✓  '; padding-left: 20px; line-height: 1.8; color: var(--color-dim-text); }
+        .ai-output ul li strong { color: var(--color-light-text); }
+        
+        /* --- Specific AI Sections --- */
+        .ai-output-content { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+        .ai-dish-photo { height: 350px; width: 100%; background-color: #1a1a22; background-size: cover; background-position: center; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid var(--color-border); transition: background-image 0.5s ease-in-out, opacity 0.5s ease-in-out; opacity: 0; }
+        .ai-dish-photo.visible { opacity: 1; }
+        .event-plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .event-plan-card, .social-post-card, .pricing-card-dynamic, .inventory-card, .strategy-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; }
+        .event-plan-card h5, .social-post-card h5, .pricing-card-dynamic h5, .inventory-card h5, .strategy-card h5 { display: flex; align-items: center; gap: 10px; margin-top: 0; font-size: 1.2rem; border: none; }
+        .event-plan-card i, .social-post-card i, .pricing-card-dynamic i, .inventory-card i, .strategy-card i { color: var(--gradient-end); }
+        #social-post-output { background: var(--color-dark-bg); border: 1px dashed var(--color-border); padding: 15px; border-radius: 10px; margin-top: 10px; font-style: italic; white-space: pre-wrap; }
+        #social-media-suite { margin-top: 20px; }
+        .pricing-output-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .pricing-card-dynamic .price { font-size: 2rem; font-weight: 700; color: var(--color-light-text); }
+        .pricing-card-dynamic .price.up { color: #4ade80; }
+        .pricing-card-dynamic .price.down { color: #f87171; }
+        #profit-simulator { margin-top: 20px; }
+        .inventory-list { list-style-type: none; padding: 0; }
+        .inventory-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--color-border); }
+        .inventory-list li:last-child { border-bottom: none; }
+        .daily-special-item { border-bottom: 1px solid var(--color-border); padding: 15px 0; }
+        .daily-special-item:last-child { border-bottom: none; }
+        .daily-special-item h5 { border: none; margin: 0 0 5px 0; }
+
+         /* Responsive adjustments for grids */
+        @media (max-width: 900px) {
+            .ai-output-content, .event-plan-grid, .pricing-output-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Loader Animation */
+        .image-loader { width: 48px; height: 48px; border: 5px solid var(--color-light-text); border-bottom-color: var(--gradient-start); border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotation 1s linear infinite; }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- 8. AI Assistant Chat --- */
+        #ai-assistant-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        #ai-assistant-btn:hover { transform: scale(1.1); }
+        #ai-assistant-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            max-width: 90vw;
+            height: 500px;
+            background: rgba(10, 10, 16, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(20px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        #ai-assistant-window.visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .chat-header { padding: 15px; border-bottom: 1px solid var(--color-border); text-align: center; font-weight: 600; }
+        .chat-body { flex-grow: 1; padding: 15px; overflow-y: auto; }
+        .chat-message { margin-bottom: 15px; }
+        .chat-message.user { text-align: right; }
+        .chat-message .bubble {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+        .chat-message.user .bubble { background: var(--gradient-start); color: white; border-bottom-right-radius: 5px; }
+        .chat-message.assistant .bubble { background: rgba(255,255,255,0.1); border-bottom-left-radius: 5px; }
+        .chat-input-area { padding: 15px; border-top: 1px solid var(--color-border); display: flex; gap: 10px; }
+        #chat-input { flex-grow: 1; }
+        #chat-send-btn { padding: 0 20px; }
+
+        /* --- 9. Pricing Section --- */
+        .pricing-section { background-color: transparent; border: none; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; align-items: stretch; }
+        .pricing-card { 
+            background: rgba(10, 10, 16, 0.5); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid var(--color-border); 
+            border-radius: 20px; 
+            padding: 40px; 
+            text-align: center; 
+            transition: all 0.3s ease; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .pricing-card.popular { border: 2px solid var(--gradient-end); transform: scale(1.05); box-shadow: 0 0 40px rgba(225, 0, 255, 0.15); z-index: 5; }
+        .pricing-card.apex { border-width: 2px; border-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end)) 1; transform: scale(1.1); z-index: 10; box-shadow: 0 0 60px rgba(127, 0, 255, 0.3); }
+        .pricing-card h3 { color: white; }
+        .pricing-card .price { font-size: 2.5rem; font-weight: 800; margin: 20px 0; }
+        .pricing-card .price span { font-size: 1rem; font-weight: 400; color: var(--color-dim-text); }
+        .pricing-card ul { list-style-type: '✓  '; padding-left: 20px; text-align: left; color: var(--color-dim-text); line-height: 1.8; margin-bottom: auto; flex-grow: 1; }
+        .pricing-card ul li strong { color: var(--color-light-text); }
+        .pricing-card .cta-button { margin-top: 30px; width: 100%; }
+        
+        /* --- 10. Footer --- */
+        .footer { text-align: center; color: var(--color-dim-text); padding: 50px 20px 20px; }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">AuraMenu</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#ai-lab">Menu Lab</a>
+                <a href="#ai-tools">AI Suite</a>
+                <a href="#operations">Operations</a>
+                <a href="#strategy">Strategy</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1 class="fade-in">STOP SELLING DISHES.<br>START SELLING EXPERIENCES.</h1>
+            <p class="section-subtitle fade-in" style="transition-delay: 0.2s;">
+                AuraMenu is the unified platform for India's elite restaurants to increase revenue, captivate guests, and streamline operations.
+            </p>
+            <a href="#pricing" class="cta-button fade-in" style="transition-delay: 0.4s;">View Plans & Pricing</a>
+        </div>
+    </section>
+
+    <div id="features" class="container">
+        <h2 class="fade-in" style="text-align:center;">A PLATFORM BUILT FOR GROWTH</h2>
+        <div class="bento-grid">
+            <div class="bento-card large fade-in">
+                <div class="icon">
+                     <svg class="animated-svg" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                </div>
+                <h3>Increase Revenue</h3>
+                <p>Our Aura AI™ intelligently upsells items, suggests dynamic pricing, and creates event plans to maximize profit.</p>
+            </div>
+             <div class="bento-card fade-in" style="transition-delay: 0.1s;">
+                <div class="icon">
+                    <svg class="animated-svg" viewBox="0 0 24 24"><path d="M12.22 16.88a1.5 1.5 0 0 0 1.56 0l4.13-2.54a1.5 1.5 0 0 0 0-2.68l-4.13-2.54a1.5 1.5 0 0 0-1.56 0l-4.13 2.54a1.5 1.5 0 0 0 0 2.68z"/><path d="M12 22V12"/><path d="M20 12l-8-8-8 8"/><path d="m17.89 10.11 1.83-1.83"/><path d="M12 2h.01"/><path d="m6.11 10.11-1.83-1.83"/></svg>
+                </div>
+                <h3>Elevate Brand</h3>
+                <p>Deliver a next-gen experience with AR Previews and AI-generated social content.</p>
+            </div>
+            <div class="bento-card fade-in" style="transition-delay: 0.2s;">
+                <div class="icon">
+                    <svg class="animated-svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 22v-2"/><path d="m17 20.66-1-1.73"/><path d="M11 10.27 7 3.34"/><path d="m20.66 17-1.73-1"/><path d="m3.34 7 1.73 1"/><path d="M14 12h8"/><path d="M2 12h2"/><path d="m20.66 7-1.73 1"/><path d="m3.34 17 1.73-1"/><path d="m17 3.34-1 1.73"/><path d="m11 13.73 4 6.93"/></svg>
+                </div>
+                <h3>Optimize Operations</h3>
+                <p>From POS integration to AI-powered staff training, streamline every aspect of your service.</p>
+            </div>
+             <div class="bento-card tall fade-in" style="transition-delay: 0.3s;">
+                <div class="icon">
+                    <svg class="animated-svg" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M16 20h2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><path d="M6 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+                </div>
+                <h3>Data-Driven Decisions</h3>
+                <p>Turn customer reviews into actionable insights and understand your business like never before with our analytics suite.</p>
+            </div>
+             <div class="bento-card large fade-in" style="transition-delay: 0.4s;">
+                <div class="icon">
+                    <svg class="animated-svg" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M12 22V8"/><path d="M15 5a3 3 0 0 0-6 0"/></svg>
+                </div>
+                <h3>Effortless Marketing</h3>
+                <p>Generate entire social media campaigns, from Instagram captions to Reel scripts, directly from your menu creations.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI Menu Lab Section -->
+    <div id="ai-lab" class="container">
+        <h2 class="fade-in" style="text-align:center;">✨ AI MENU INNOVATION LAB</h2>
+        <p class="section-subtitle fade-in">Unleash culinary creativity. Enter a key ingredient and let our Aura AI™ engine generate a profitable, on-brand dish concept and a stunning visual in seconds.</p>
+        <div class="ai-section-wrapper fade-in">
+            <div class="ai-inputs" style="grid-template-columns: 1fr 1fr auto;">
+                <div>
+                    <label for="ingredient-input">Main Ingredient</label>
+                    <input type="text" id="ingredient-input" placeholder="e.g., Mango, Lamb, Paneer">
+                </div>
+                <div>
+                    <label for="cuisine-select">Cuisine Style</label>
+                    <select id="cuisine-select">
+                        <option>Modern Indian</option>
+                        <option>Global Fusion</option>
+                        <option>Hyderabadi Special</option>
+                    </select>
+                </div>
+                <button id="generate-dish-btn" class="cta-button">Generate Concept</button>
+            </div>
+            <div id="ai-output-dish" class="ai-output">
+                <p>Your AI-generated dish concept will appear here.</p>
+            </div>
+            <div id="social-media-suite" style="display: none;">
+                <h3 style="text-align: center; margin-top: 40px;">🚀 AI Social Media Suite</h3>
+                 <div id="social-post-output" class="ai-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-tools">
+        <!-- AI Ambiance & Playlist Generator -->
+        <div id="ai-ambiance" class="container">
+            <h2 class="fade-in" style="text-align:center;">✨ AI AMBIANCE GENERATOR</h2>
+            <p class="section-subtitle fade-in">Set the perfect mood for any occasion. Our AI curates playlists, lighting, and decor ideas to create an unforgettable atmosphere.</p>
+            <div class="ai-section-wrapper fade-in">
+                <div class="ai-inputs" style="grid-template-columns: 1fr 1fr auto;">
+                    <div>
+                        <label for="ambiance-event-type">Event Type</label>
+                        <input type="text" id="ambiance-event-type" placeholder="e.g., Romantic Dinner">
+                    </div>
+                    <div>
+                        <label for="ambiance-music-genre">Music Genre</label>
+                        <input type="text" id="ambiance-music-genre" placeholder="e.g., Instrumental Jazz">
+                    </div>
+                    <button id="generate-ambiance-btn" class="cta-button">Create Ambiance</button>
+                </div>
+                <div id="ai-output-ambiance" class="ai-output">
+                    <p>Your AI-generated ambiance plan will appear here.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Dynamic Pricing & Profit Simulator Section -->
+        <div id="ai-pricing" class="container">
+            <h2 class="fade-in" style="text-align:center;">✨ AI PROFIT SIMULATOR</h2>
+            <p class="section-subtitle fade-in">From dynamic pricing to profit margins, make smarter financial decisions. Our AI helps you visualize the impact of pricing changes on your bottom line.</p>
+            <div class="ai-section-wrapper fade-in">
+                <div class="ai-inputs" style="grid-template-columns: 1fr 1fr auto;">
+                    <div>
+                        <label for="item-name-input">Menu Item</label>
+                        <input type="text" id="item-name-input" placeholder="e.g., Hyderabadi Biryani">
+                    </div>
+                    <div>
+                        <label for="base-price-input">Current Base Price (₹)</label>
+                        <input type="number" id="base-price-input" placeholder="e.g., 550">
+                    </div>
+                    <button id="suggest-price-btn" class="cta-button">Suggest Prices</button>
+                </div>
+                <div id="ai-output-pricing" class="ai-output">
+                    <p>Your dynamic pricing suggestions will appear here.</p>
+                </div>
+                <div id="profit-simulator" style="display: none; margin-top: 20px;">
+                     <div class="ai-inputs" style="grid-template-columns: 1fr auto;">
+                         <div>
+                            <label for="food-cost-input">Food Cost (₹)</label>
+                            <input type="number" id="food-cost-input" placeholder="e.g., 150">
+                         </div>
+                        <button id="calculate-profit-btn" class="cta-button secondary">Calculate Profit</button>
+                    </div>
+                    <div id="ai-output-profit" class="ai-output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="operations" class="container">
+        <h2 class="fade-in" style="text-align:center;">RESERVATIONS & OPERATIONS</h2>
+        <p class="section-subtitle fade-in">Manage your bookings and get a real-time pulse on your inventory with our integrated operational tools.</p>
+        <div class="ai-section-wrapper fade-in">
+            <div class="ops-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">
+                <!-- Table Reservation -->
+                <div style="display: flex; flex-direction: column;">
+                    <h3><i class="lucide lucide-calendar-plus"></i> Reserve a Table</h3>
+                    <div class="ai-inputs" style="grid-template-columns: 1fr 1fr;">
+                        <div>
+                            <label for="res-date">Date</label>
+                            <input type="date" id="res-date">
+                        </div>
+                        <div>
+                            <label for="res-time">Time</label>
+                            <input type="time" id="res-time">
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <label for="res-guests">Number of Guests</label>
+                            <input type="number" id="res-guests" placeholder="2">
+                        </div>
+                    </div>
+                    <button id="check-availability-btn" class="cta-button" style="width: 100%; margin-top: 20px;">Check Availability</button>
+                    <div id="reservation-output" class="ai-output" style="min-height: 50px; text-align: center; margin-top: 20px; flex-grow: 1;">
+                        <p>Check availability to book your table.</p>
+                    </div>
+                </div>
+                <!-- Inventory Insights -->
+                <div style="display: flex; flex-direction: column;">
+                    <h3><i class="lucide lucide-boxes"></i> AI Inventory Insights</h3>
+                    <p style="color: var(--color-dim-text);">Get a quick glance at your stock levels. Our AI highlights what needs your attention.</p>
+                    <div id="inventory-output" class="ai-output" style="flex-grow: 1;">
+                        <p>Click the button to get the latest inventory report.</p>
+                    </div>
+                    <button id="get-inventory-btn" class="cta-button secondary" style="width: 100%; margin-top: 20px;">Get Inventory Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div id="strategy" class="container">
+        <h2 class="fade-in" style="text-align:center;">STRATEGIC INTELLIGENCE</h2>
+        <p class="section-subtitle fade-in">Stay ahead of the curve with AI-powered tools for menu planning and competitive analysis.</p>
+        <div class="ai-section-wrapper fade-in">
+            <div class="strategy-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;">
+                <!-- Daily Specials -->
+                <div style="display: flex; flex-direction: column;">
+                    <h3><i class="lucide lucide-sparkles"></i> AI-Generated Daily Specials</h3>
+                    <p style="color: var(--color-dim-text);">Keep your menu fresh and exciting. Generate seasonal specials for today with one click.</p>
+                    <div id="ai-output-specials" class="ai-output" style="flex-grow: 1;">
+                        <p>Your AI-generated specials will appear here.</p>
+                    </div>
+                    <button id="generate-specials-btn" class="cta-button" style="width: 100%; margin-top: 20px;">Generate Today's Specials</button>
+                </div>
+                <!-- Competitor Analysis -->
+                <div style="display: flex; flex-direction: column;">
+                    <h3><i class="lucide lucide-swords"></i> AI Competitor Analysis</h3>
+                     <div class="ai-inputs" style="grid-template-columns: 1fr;">
+                         <div>
+                            <label for="competitor-name-input">Competitor Name</label>
+                            <input type="text" id="competitor-name-input" placeholder="e.g., Paradise Biryani">
+                         </div>
+                    </div>
+                    <div id="ai-output-competitor" class="ai-output" style="margin-top:20px; flex-grow: 1;">
+                        <p>Your competitor analysis will appear here.</p>
+                    </div>
+                    <button id="analyze-competitor-btn" class="cta-button secondary" style="width: 100%; margin-top: 20px;">Analyze Competitor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section id="pricing" class="container pricing-section">
+        <h2 class="fade-in" style="text-align:center;">Transparent Pricing for Every Ambition</h2>
+        <p class="section-subtitle fade-in">No hidden fees. No negotiations. Just pure value. Choose the plan that aligns with your growth strategy. All prices are per location, per month.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card fade-in">
+                <h3>ÉLITE</h3>
+                <p style="color: var(--color-dim-text);">For premium independent restaurants.</p>
+                <div class="price">₹10,000<span>/mo</span></div>
+                <ul>
+                    <li><strong>Visually Stunning</strong> Digital Menu</li>
+                    <li><strong>Table Reservations</strong> Dashboard</li>
+                    <li><strong>AI Concierge</strong> Chatbot</li>
+                    <li>Standard Analytics</li>
+                </ul>
+                <button class="cta-button secondary">Get Started</button>
+            </div>
+            <div class="pricing-card popular fade-in">
+                <p style="font-family: var(--font-primary); color: white; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); padding: 8px; border-radius: 50px; margin-top:-60px; margin-bottom: 20px;">MOST POPULAR</p>
+                <h3>ENTERPRISE</h3>
+                <p style="color: var(--color-dim-text);">For ambitious brands & hotel groups.</p>
+                <div class="price">₹25,000<span>/mo</span></div>
+                <ul>
+                    <li>Everything in Élite, plus:</li>
+                    <li><strong>AI Menu Lab</strong> & Social Suite</li>
+                    <li><strong>AI Ambiance Generator</strong></li>
+                    <li><strong>AI Inventory Insights</strong></li>
+                    <li><strong>AI Daily Specials</strong> Generator</li>
+                    <li><strong>FlowOS™</strong> POS Integration</li>
+                </ul>
+                <button class="cta-button">Choose Enterprise</button>
+            </div>
+            <div class="pricing-card apex fade-in">
+                 <p style="font-family: var(--font-primary); color: white; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); padding: 8px; border-radius: 50px; margin-top:-60px; margin-bottom: 20px;">ULTIMATE</p>
+                <h3>APEX</h3>
+                <p style="color: var(--color-dim-text);">For flagship venues seeking the extraordinary.</p>
+                <div class="price">Let's Talk</div>
+                <ul>
+                    <li>Everything in Enterprise, plus:</li>
+                    <li><strong>AI Profit Simulator</strong></li>
+                    <li><strong>AI Competitor Analysis</strong></li>
+                    <li><strong>Tableverse™ AR</strong> Experience</li>
+                    <li>Bespoke Feature Development</li>
+                </ul>
+                <button class="cta-button">Book a Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>AuraMenu Technologies Pvt. Ltd. | Made with ❤️ in Hyderabad</p>
+        <p>&copy; 2025 - The Future of Hospitality is Here.</p>
+    </footer>
+
+    <!-- AI Assistant Floating Button & Window -->
+    <button id="ai-assistant-btn">
+        <i class="lucide lucide-bot" style="font-size: 28px; color: white;"></i>
+    </button>
+    <div id="ai-assistant-window">
+        <div class="chat-header">AI Concierge</div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message assistant">
+                <div class="bubble">Hello! How can I help you today? You can ask about our menu, specials, or make a reservation.</div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" class="ai-inputs" placeholder="Ask a question...">
+            <button id="chat-send-btn" class="cta-button"><i class="lucide lucide-send"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // --- API HELPERS ---
+        const API_KEY = ""; // Handled by the execution environment
+
+        async function callGeminiAPI(payload) {
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error(`Text API Error: ${response.status}`);
+            const result = await response.json();
+            const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!jsonText) throw new Error("Received an empty text response from the API.");
+            try {
+                return JSON.parse(jsonText);
+            } catch (e) {
+                console.error("Failed to parse JSON response:", jsonText);
+                return { "error": "Invalid JSON response from API." };
+            }
+        }
+
+        async function generateDishImage(prompt) {
+            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${API_KEY}`;
+            const payload = { instances: [{ prompt: prompt }], parameters: { "sampleCount": 1 } };
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error(`Image API Error: ${response.status}`);
+            const result = await response.json();
+            const base64Data = result.predictions?.[0]?.bytesBase64Encoded;
+            return base64Data ? `data:image/png;base64,${base64Data}` : null;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Particle JS Initialization ---
+            if(window.particlesJS) {
+                particlesJS('particles-js', {
+                    "particles": { "number": { "value": 60, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle" }, "opacity": { "value": 0.4, "random": true }, "size": { "value": 3, "random": true }, "line_linked": { "enable": false }, "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" } },
+                    "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "bubble" }, "onclick": { "enable": false } }, "modes": { "bubble": { "distance": 250, "size": 0, "duration": 2, "opacity": 0, "speed": 3 } } },
+                    "retina_detect": true
+                });
+            }
+            
+            // --- Aurora Background Mouse Tracking ---
+            document.body.addEventListener('mousemove', e => {
+                document.body.style.setProperty('--x', `${e.clientX}px`);
+                document.body.style.setProperty('--y', `${e.clientY}px`);
+            });
+
+            // --- On-Scroll Fade-In & SVG Animation ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('.fade-in, .bento-card').forEach(el => observer.observe(el));
+
+            // --- AI Menu Lab Logic ---
+            const generateDishBtn = document.getElementById('generate-dish-btn');
+            const ingredientInput = document.getElementById('ingredient-input');
+            const cuisineSelect = document.getElementById('cuisine-select');
+            const aiOutputDish = document.getElementById('ai-output-dish');
+            const socialMediaSuite = document.getElementById('social-media-suite');
+            const socialPostOutput = document.getElementById('social-post-output');
+
+            if (generateDishBtn) {
+                generateDishBtn.addEventListener('click', async () => {
+                    const ingredient = ingredientInput.value;
+                    if (!ingredient) {
+                        aiOutputDish.innerHTML = `<p style="color: #E100FF;">Please enter a main ingredient.</p>`;
+                        return;
+                    }
+                    const cuisine = cuisineSelect.value;
+                    
+                    generateDishBtn.disabled = true;
+                    generateDishBtn.textContent = "Generating...";
+                    socialMediaSuite.style.display = 'none';
+                    aiOutputDish.classList.add('loading');
+                    aiOutputDish.innerHTML = `<p>✨ Thinking of a ${cuisine} concept for "${ingredient}"...</p>`;
+
+                    const textPrompt = `You are an AI culinary director. For a "${cuisine}" dish with "${ingredient}", generate a dish name, a detailed image prompt for a photorealistic image, and HTML menu content with a creative name, description, and key selling points.`;
+                    
+                    const payload = {
+                        contents: [{ parts: [{ text: textPrompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    dishName: { type: "STRING" },
+                                    photoPrompt: { type: "STRING" },
+                                    menuContent: { type: "STRING" }
+                                },
+                                required: ["dishName", "photoPrompt", "menuContent"]
+                            }
+                        }
+                    };
+
+                    try {
+                        const concept = await callGeminiAPI(payload);
+                        aiOutputDish.innerHTML = `<div class="ai-output-content"><div class="ai-dish-photo"><div class="image-loader"></div></div><div class="ai-text-content">${concept.menuContent}</div></div>`;
+                        aiOutputDish.classList.remove('loading');
+                        
+                        const imagePrompt = `${concept.photoPrompt}, fine dining, professional food photography, dramatic lighting, hyperrealistic`;
+                        const imageUrl = await generateDishImage(imagePrompt);
+                        
+                        const photoDiv = aiOutputDish.querySelector('.ai-dish-photo');
+                        if (imageUrl && photoDiv) {
+                            photoDiv.innerHTML = '';
+                            photoDiv.style.backgroundImage = `url('${imageUrl}')`;
+                            setTimeout(() => photoDiv.classList.add('visible'), 50);
+                        }
+                        
+                        socialMediaSuite.style.display = 'block';
+                        socialPostOutput.innerHTML = `<p>Click the button below to generate social media content for "${concept.dishName}".</p><button id="generate-social-btn" class="cta-button secondary" style="margin-top: 10px;">Create Social Post</button>`;
+                        document.getElementById('generate-social-btn').addEventListener('click', () => generateSocialPost(concept.dishName, concept.menuContent));
+
+                    } catch (error) {
+                        console.error("AI Dish Generation Error:", error);
+                        aiOutputDish.innerHTML = `<p style="color: #ff8888;">Sorry, an error occurred. Please try again.</p>`;
+                    } finally {
+                        generateDishBtn.disabled = false;
+                        generateDishBtn.textContent = "Generate Concept";
+                    }
+                });
+            }
+
+            async function generateSocialPost(dishName, description) {
+                const socialBtn = document.getElementById('generate-social-btn');
+                socialBtn.disabled = true;
+                socialBtn.textContent = "Generating...";
+                
+                const socialPrompt = `You are a social media manager for a high-end restaurant. For a dish named "${dishName}" with the description "${description}", create an engaging Instagram caption with relevant hashtags, and a short, punchy script for an Instagram Reel.`;
+                const payload = {
+                    contents: [{ parts: [{ text: socialPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                caption: { type: "STRING" },
+                                reelScript: { type: "STRING" }
+                            },
+                            required: ["caption", "reelScript"]
+                        }
+                    }
+                };
+                try {
+                    const socialContent = await callGeminiAPI(payload);
+                    socialPostOutput.innerHTML = `
+                        <div class="social-post-card">
+                            <h5><i class="lucide lucide-instagram"></i> Instagram Caption</h5>
+                            <p>${socialContent.caption.replace(/\n/g, '<br>')}</p>
+                        </div>
+                        <div class="social-post-card" style="margin-top: 15px;">
+                            <h5><i class="lucide lucide-clapperboard"></i> Reel Script</h5>
+                            <p>${socialContent.reelScript.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    `;
+                } catch (e) {
+                    socialPostOutput.innerHTML = `<p style="color: #ff8888;">Could not generate social content.</p>`;
+                } finally {
+                     socialBtn.style.display = 'none';
+                }
+            }
+
+            // --- AI Ambiance Logic ---
+            const generateAmbianceBtn = document.getElementById('generate-ambiance-btn');
+            if (generateAmbianceBtn) {
+                generateAmbianceBtn.addEventListener('click', async () => {
+                    const eventType = document.getElementById('ambiance-event-type').value;
+                    const musicGenre = document.getElementById('ambiance-music-genre').value;
+                    if (!eventType || !musicGenre) {
+                        document.getElementById('ai-output-ambiance').innerHTML = `<p style="color: #E100FF;">Please provide an event type and music genre.</p>`;
+                        return;
+                    }
+
+                    generateAmbianceBtn.disabled = true;
+                    generateAmbianceBtn.textContent = "Curating...";
+                    const outputDiv = document.getElementById('ai-output-ambiance');
+                    outputDiv.classList.add('loading');
+                    outputDiv.innerHTML = `<p>Designing the perfect ambiance...</p>`;
+
+                    const ambiancePrompt = `As an expert event designer, create an ambiance package for a "${eventType}" with a "${musicGenre}" theme. Provide a Spotify playlist ID (e.g., 37i9dQZF1DX4sWSpwq3LiO), specific lighting suggestions, and thematic decor ideas.`;
+                    const payload = {
+                        contents: [{ parts: [{ text: ambiancePrompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    playlistId: { type: "STRING" },
+                                    lighting: { type: "ARRAY", items: { type: "STRING" } },
+                                    decor: { type: "ARRAY", items: { type: "STRING" } }
+                                },
+                                required: ["playlistId", "lighting", "decor"]
+                            }
+                        }
+                    };
+                    try {
+                        const ambiance = await callGeminiAPI(payload);
+                        outputDiv.innerHTML = `
+                            <h4>Ambiance Plan: ${eventType}</h4>
+                            <div class="event-plan-grid">
+                                <div class="event-plan-card" style="grid-column: span 2;">
+                                    <h5><i class="lucide lucide-music"></i> Curated Playlist</h5>
+                                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/${ambiance.playlistId}?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                                </div>
+                                <div class="event-plan-card">
+                                    <h5><i class="lucide lucide-lightbulb"></i> Lighting</h5>
+                                    <ul>${ambiance.lighting.map(item => `<li>${item}</li>`).join('')}</ul>
+                                </div>
+                                <div class="event-plan-card">
+                                    <h5><i class="lucide lucide-flower-2"></i> Decor Ideas</h5>
+                                    <ul>${ambiance.decor.map(item => `<li>${item}</li>`).join('')}</ul>
+                                </div>
+                            </div>
+                        `;
+                    } catch (e) {
+                         outputDiv.innerHTML = `<p style="color: #ff8888;">Could not generate an ambiance plan.</p>`;
+                    } finally {
+                        generateAmbianceBtn.disabled = false;
+                        generateAmbianceBtn.textContent = "Create Ambiance";
+                        outputDiv.classList.remove('loading');
+                    }
+                });
+            }
+
+            // --- AI Profit Simulator Logic ---
+            const suggestPriceBtn = document.getElementById('suggest-price-btn');
+            let suggestedPrices = {};
+            if(suggestPriceBtn) {
+                suggestPriceBtn.addEventListener('click', async () => {
+                    const itemName = document.getElementById('item-name-input').value;
+                    const basePrice = document.getElementById('base-price-input').value;
+                    if(!itemName || !basePrice) {
+                        document.getElementById('ai-output-pricing').innerHTML = `<p style="color: #E100FF;">Please provide an item name and base price.</p>`;
+                        return;
+                    }
+                    
+                    suggestPriceBtn.disabled = true;
+                    suggestPriceBtn.textContent = "Calculating...";
+                    const outputDiv = document.getElementById('ai-output-pricing');
+                    outputDiv.classList.add('loading');
+                    document.getElementById('profit-simulator').style.display = 'none';
+                    document.getElementById('ai-output-profit').innerHTML = '';
+                    outputDiv.innerHTML = `<p>Analyzing market factors for ${itemName}...</p>`;
+
+                    const pricingPrompt = `As a restaurant revenue AI, suggest dynamic pricing for "${itemName}" with a base price of ₹${basePrice}. It's currently Saturday, 10:32 AM in Hyderabad. Consider time of day, day of week, and local events (none major). Provide suggested prices for breakfast, lunch, and dinner, and a brief justification for each.`;
+                    const payload = {
+                        contents: [{ parts: [{ text: pricingPrompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    breakfast: { type: "OBJECT", properties: { price: { type: "NUMBER" }, justification: { type: "STRING" } } },
+                                    lunch: { type: "OBJECT", properties: { price: { type: "NUMBER" }, justification: { type: "STRING" } } },
+                                    dinner: { type: "OBJECT", properties: { price: { type: "NUMBER" }, justification: { type: "STRING" } } }
+                                },
+                                required: ["breakfast", "lunch", "dinner"]
+                            }
+                        }
+                    };
+                    try {
+                        const pricing = await callGeminiAPI(payload);
+                        suggestedPrices = { breakfast: pricing.breakfast.price, lunch: pricing.lunch.price, dinner: pricing.dinner.price };
+                        
+                        const createPriceCard = (period, data) => {
+                            const change = data.price - basePrice;
+                            const changeClass = change > 0 ? 'up' : (change < 0 ? 'down' : '');
+                            const changeIcon = change > 0 ? '▲' : (change < 0 ? '▼' : '●');
+                            return `
+                                <div class="pricing-card-dynamic">
+                                    <h5><i class="lucide lucide-${period === 'Breakfast' ? 'sunrise' : (period === 'Lunch' ? 'sun' : 'moon')}"></i> ${period}</h5>
+                                    <div class="price ${changeClass}">₹${data.price} <span style="font-size: 1rem;">(${changeIcon} ₹${Math.abs(change)})</span></div>
+                                    <p style="color: var(--color-dim-text);">${data.justification}</p>
+                                </div>
+                            `;
+                        };
+                        outputDiv.innerHTML = `<h4>Dynamic Pricing for ${itemName}</h4><div class="pricing-output-grid">
+                            ${createPriceCard('Breakfast', pricing.breakfast)}
+                            ${createPriceCard('Lunch', pricing.lunch)}
+                            ${createPriceCard('Dinner', pricing.dinner)}
+                        </div>`;
+                        document.getElementById('profit-simulator').style.display = 'block';
+                    } catch (e) {
+                        outputDiv.innerHTML = `<p style="color: #ff8888;">Could not calculate dynamic pricing.</p>`;
+                    } finally {
+                        suggestPriceBtn.disabled = false;
+                        suggestPriceBtn.textContent = "Suggest Prices";
+                        outputDiv.classList.remove('loading');
+                    }
+                });
+            }
+
+            const calculateProfitBtn = document.getElementById('calculate-profit-btn');
+            if (calculateProfitBtn) {
+                calculateProfitBtn.addEventListener('click', () => {
+                    const foodCost = parseFloat(document.getElementById('food-cost-input').value);
+                    if (!foodCost || foodCost <= 0) {
+                        document.getElementById('ai-output-profit').innerHTML = `<p style="color: #E100FF;">Please enter a valid food cost.</p>`;
+                        return;
+                    }
+
+                    const profitData = {
+                        labels: ['Breakfast', 'Lunch', 'Dinner'],
+                        datasets: [{
+                            label: 'Profit Margin (%)',
+                            data: [
+                                ((suggestedPrices.breakfast - foodCost) / suggestedPrices.breakfast) * 100,
+                                ((suggestedPrices.lunch - foodCost) / suggestedPrices.lunch) * 100,
+                                ((suggestedPrices.dinner - foodCost) / suggestedPrices.dinner) * 100
+                            ],
+                            backgroundColor: ['rgba(127, 0, 255, 0.5)', 'rgba(225, 0, 255, 0.5)', 'rgba(127, 0, 255, 0.7)'],
+                            borderColor: ['rgb(127, 0, 255)', 'rgb(225, 0, 255)', 'rgb(127, 0, 255)'],
+                            borderWidth: 1
+                        }]
+                    };
+
+                    const profitOutputDiv = document.getElementById('ai-output-profit');
+                    profitOutputDiv.innerHTML = '<canvas id="profitChart"></canvas>';
+                    new Chart(document.getElementById('profitChart'), {
+                        type: 'bar',
+                        data: profitData,
+                        options: {
+                            scales: { y: { beginAtZero: true, ticks: { callback: (value) => value.toFixed(0) + '%' } } },
+                            plugins: { legend: { display: false } },
+                            maintainAspectRatio: false
+                        }
+                    });
+                });
+            }
+
+            // --- Reservation & Inventory Logic ---
+            document.getElementById('check-availability-btn').addEventListener('click', () => {
+                const date = document.getElementById('res-date').value;
+                const time = document.getElementById('res-time').value;
+                const guests = document.getElementById('res-guests').value;
+                const output = document.getElementById('reservation-output');
+                if(!date || !time || !guests) {
+                     output.innerHTML = `<p style="color: #E100FF;">Please fill in all fields.</p>`;
+                     return;
+                }
+                output.innerHTML = `<p style="color: #4ade80;">Table confirmed for ${guests} guests on ${date} at ${time}!</p>`;
+            });
+
+            document.getElementById('get-inventory-btn').addEventListener('click', async () => {
+                const output = document.getElementById('inventory-output');
+                const button = document.getElementById('get-inventory-btn');
+                button.disabled = true;
+                button.textContent = "Analyzing...";
+                output.classList.add('loading');
+                output.innerHTML = `<p>Analyzing current stock levels...</p>`;
+                
+                const inventoryPrompt = `As an AI restaurant operations manager, analyze this mock inventory data: Lamb Shanks (8 units), Saffron (20g), Basmati Rice (50kg), Chicken (35kg), Onions (40kg). Identify the top 2 items that are "Running Low" and the top 3 that are "Well Stocked". Provide a brief, actionable summary suggesting a potential special to use up a well-stocked item.`;
+                const payload = {
+                    contents: [{ parts: [{ text: inventoryPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                summary: { type: "STRING" },
+                                lowStock: { type: "ARRAY", items: { type: "OBJECT", properties: { item: { type: "STRING" }, level: { type: "STRING" } } } },
+                                highStock: { type: "ARRAY", items: { type: "OBJECT", properties: { item: { type: "STRING" }, level: { type: "STRING" } } } }
+                            },
+                            required: ["summary", "lowStock", "highStock"]
+                        }
+                    }
+                };
+                
+                try {
+                    const inventory = await callGeminiAPI(payload);
+                    output.innerHTML = `
+                        <div class="inventory-card">
+                            <h5><i class="lucide lucide-info"></i> AI Summary</h5>
+                            <p style="color: var(--color-dim-text);">${inventory.summary}</p>
+                        </div>
+                        <div class="inventory-card" style="margin-top: 15px;">
+                            <h5><i class="lucide lucide-trending-down" style="color: #f87171;"></i> Running Low</h5>
+                            <ul class="inventory-list">
+                                ${inventory.lowStock.map(i => `<li><span>${i.item}</span><span>${i.level}</span></li>`).join('')}
+                            </ul>
+                        </div>
+                        <div class="inventory-card" style="margin-top: 15px;">
+                             <h5><i class="lucide lucide-trending-up" style="color: #4ade80;"></i> Well Stocked</h5>
+                            <ul class="inventory-list">
+                                ${inventory.highStock.map(i => `<li><span>${i.item}</span><span>${i.level}</span></li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                } catch(e) {
+                    output.innerHTML = `<p style="color: #ff8888;">Could not retrieve inventory report.</p>`;
+                } finally {
+                    button.disabled = false;
+                    button.textContent = "Get Inventory Report";
+                    output.classList.remove('loading');
+                }
+            });
+            
+            // --- AI Assistant Chat Logic ---
+            const assistantBtn = document.getElementById('ai-assistant-btn');
+            const assistantWindow = document.getElementById('ai-assistant-window');
+            const chatBody = document.getElementById('chat-body');
+            const chatInput = document.getElementById('chat-input');
+            const chatSendBtn = document.getElementById('chat-send-btn');
+            
+            assistantBtn.addEventListener('click', () => {
+                assistantWindow.classList.toggle('visible');
+            });
+
+            const handleChat = async () => {
+                const userInput = chatInput.value;
+                if (!userInput) return;
+                
+                addChatMessage(userInput, 'user');
+                chatInput.value = '';
+                addChatMessage('...', 'assistant', true);
+
+                const chatPrompt = `As an AI concierge for a high-end restaurant, respond to the user's query: "${userInput}". Be helpful, concise, and maintain a professional, friendly tone.`;
+                const payload = {
+                    contents: [{ parts: [{ text: chatPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                response: { type: "STRING" }
+                            },
+                            required: ["response"]
+                        }
+                    }
+                };
+
+                try {
+                    const result = await callGeminiAPI(payload);
+                    updateAssistantMessage(result.response);
+                } catch (e) {
+                    updateAssistantMessage("I'm sorry, I'm having a little trouble connecting right now. Please try again in a moment.");
+                }
+            };
+
+            chatSendBtn.addEventListener('click', handleChat);
+            chatInput.addEventListener('keypress', (e) => {
+                if(e.key === 'Enter') handleChat();
+            });
+
+            function addChatMessage(text, sender, isLoading = false) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-message ${sender}`;
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.textContent = text;
+                if(isLoading) bubble.id = 'loading-bubble';
+                msgDiv.appendChild(bubble);
+                chatBody.appendChild(msgDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function updateAssistantMessage(text) {
+                const loadingBubble = document.getElementById('loading-bubble');
+                if(loadingBubble) {
+                    loadingBubble.textContent = text;
+                    loadingBubble.id = '';
+                }
+            }
+
+            // --- Strategic Intelligence Logic ---
+            const generateSpecialsBtn = document.getElementById('generate-specials-btn');
+            if (generateSpecialsBtn) {
+                generateSpecialsBtn.addEventListener('click', async () => {
+                    generateSpecialsBtn.disabled = true;
+                    generateSpecialsBtn.textContent = "Creating...";
+                    const outputDiv = document.getElementById('ai-output-specials');
+                    outputDiv.classList.add('loading');
+                    outputDiv.innerHTML = `<p>Crafting today's specials...</p>`;
+
+                    const specialsPrompt = `As a creative executive chef in Hyderabad, India, generate a three-course "Specials of the Day" menu for today, August 2, 2025. The season is monsoon. Suggest a creative appetizer, main course, and dessert using seasonal ingredients. For each, provide a name and a brief, enticing description.`;
+                    const payload = {
+                        contents: [{ parts: [{ text: specialsPrompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    appetizer: { type: "OBJECT", properties: { name: { type: "STRING" }, description: { type: "STRING" } } },
+                                    main: { type: "OBJECT", properties: { name: { type: "STRING" }, description: { type: "STRING" } } },
+                                    dessert: { type: "OBJECT", properties: { name: { type: "STRING" }, description: { type: "STRING" } } }
+                                },
+                                required: ["appetizer", "main", "dessert"]
+                            }
+                        }
+                    };
+                    try {
+                        const specials = await callGeminiAPI(payload);
+                        outputDiv.innerHTML = `
+                            <h4>Today's Specials</h4>
+                            <div class="daily-special-item">
+                                <h5><i class="lucide lucide-carrot"></i> Appetizer</h5>
+                                <strong>${specials.appetizer.name}</strong>
+                                <p style="color: var(--color-dim-text); margin-top: 5px;">${specials.appetizer.description}</p>
+                            </div>
+                             <div class="daily-special-item">
+                                <h5><i class="lucide lucide-drumstick"></i> Main Course</h5>
+                                <strong>${specials.main.name}</strong>
+                                <p style="color: var(--color-dim-text); margin-top: 5px;">${specials.main.description}</p>
+                            </div>
+                             <div class="daily-special-item">
+                                <h5><i class="lucide lucide-ice-cream"></i> Dessert</h5>
+                                <strong>${specials.dessert.name}</strong>
+                                <p style="color: var(--color-dim-text); margin-top: 5px;">${specials.dessert.description}</p>
+                            </div>
+                        `;
+                    } catch (e) {
+                        outputDiv.innerHTML = `<p style="color: #ff8888;">Could not generate specials.</p>`;
+                    } finally {
+                        generateSpecialsBtn.disabled = false;
+                        generateSpecialsBtn.textContent = "Generate Today's Specials";
+                        outputDiv.classList.remove('loading');
+                    }
+                });
+            }
+
+            const analyzeCompetitorBtn = document.getElementById('analyze-competitor-btn');
+            if(analyzeCompetitorBtn) {
+                analyzeCompetitorBtn.addEventListener('click', async () => {
+                    const competitorName = document.getElementById('competitor-name-input').value;
+                    if(!competitorName) {
+                         document.getElementById('ai-output-competitor').innerHTML = `<p style="color: #E100FF;">Please enter a competitor's name.</p>`;
+                         return;
+                    }
+                    analyzeCompetitorBtn.disabled = true;
+                    analyzeCompetitorBtn.textContent = "Analyzing...";
+                    const outputDiv = document.getElementById('ai-output-competitor');
+                    outputDiv.classList.add('loading');
+                    outputDiv.innerHTML = `<p>Gathering intelligence on ${competitorName}...</p>`;
+
+                    const competitorPrompt = `As a restaurant market analyst, provide a brief competitive analysis of "${competitorName}" in Hyderabad. Identify their likely signature dishes, analyze their pricing strategy (e.g., premium, mid-range), and summarize their customer review sentiment.`;
+                     const payload = {
+                        contents: [{ parts: [{ text: competitorPrompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    signatureDishes: { type: "ARRAY", items: { type: "STRING" } },
+                                    pricingStrategy: { type: "STRING" },
+                                    sentiment: { type: "STRING" }
+                                },
+                                required: ["signatureDishes", "pricingStrategy", "sentiment"]
+                            }
+                        }
+                    };
+                     try {
+                        const analysis = await callGeminiAPI(payload);
+                        outputDiv.innerHTML = `
+                            <h4>Analysis: ${competitorName}</h4>
+                            <div class="strategy-card">
+                                <h5><i class="lucide lucide-star"></i> Signature Dishes</h5>
+                                <ul>${analysis.signatureDishes.map(item => `<li>${item}</li>`).join('')}</ul>
+                            </div>
+                            <div class="strategy-card" style="margin-top: 15px;">
+                                <h5><i class="lucide lucide-indian-rupee"></i> Pricing Strategy</h5>
+                                <p>${analysis.pricingStrategy}</p>
+                            </div>
+                             <div class="strategy-card" style="margin-top: 15px;">
+                                <h5><i class="lucide lucide-message-square"></i> Customer Sentiment</h5>
+                                <p>${analysis.sentiment}</p>
+                            </div>
+                        `;
+                    } catch (e) {
+                        outputDiv.innerHTML = `<p style="color: #ff8888;">Could not analyze competitor.</p>`;
+                    } finally {
+                        analyzeCompetitorBtn.disabled = false;
+                        analyzeCompetitorBtn.textContent = "Analyze Competitor";
+                        outputDiv.classList.remove('loading');
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>
