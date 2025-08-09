@@ -86,13 +86,52 @@
             padding: 20px;
             border-radius: 15px;
         }
-        .daily-special-item {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 0;
+        .job-listing {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        .daily-special-item:last-child {
-            border-bottom: none;
+        .job-listing:hover {
+            border-color: #a855f7;
+            transform: translateY(-3px);
         }
+
+        /* Client Scroller Animation */
+        .client-scroller {
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+            mask-image: linear-gradient(to right, transparent, white 20%, white 80%, transparent);
+        }
+        .client-list {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+        .client-list:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .client-item {
+            flex-shrink: 0;
+            margin: 0 2rem;
+            transition: color 0.3s ease;
+        }
+        .client-item:hover {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #a855f7, #ec4899);
+        }
+
+        /* Footer Social Icon Hover States */
+        .social-icon-x:hover { color: #ffffff; } /* X logo is white/black */
+        .social-icon-instagram:hover { color: #E4405F; }
+        .social-icon-youtube:hover { color: #FF0000; }
+        .social-icon-linkedin:hover { color: #0A66C2; }
+        .social-icon-whatsapp:hover { color: #25D366; }
     </style>
 </head>
 <body>
@@ -104,8 +143,9 @@
                 <a href="#features" class="hover:text-pink-400 transition">Platform</a>
                 <a href="#new-guest" class="hover:text-pink-400 transition">Guest Experience</a>
                 <a href="#visual-menu" class="hover:text-pink-400 transition">Visual Menu</a>
-                <a href="#strategy" class="hover:text-pink-400 transition">Intelligence Suite</a>
+                <a href="#strategy" class="hover:text-pink-400 transition">Intelligence</a>
                 <a href="#pricing" class="hover:text-pink-400 transition">Pricing</a>
+                <a href="#careers" class="hover:text-pink-400 transition">Careers</a>
                 <a href="#contact" class="cta-primary text-white font-semibold py-2 px-5 rounded-lg">Request a Demo</a>
             </div>
         </nav>
@@ -132,15 +172,34 @@
     </section>
 
     <!-- Trusted By Section -->
-    <section class="py-12">
+    <section class="py-16">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-gray-400 font-semibold mb-6 uppercase tracking-widest">Trusted By Hyderabad's Leading Restaurants & Hotels</p>
-            <div class="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-12 gap-y-4 opacity-60">
-                <p class="text-xl font-bold font-heading">ITC Kohenur</p>
-                <p class="text-xl font-bold font-heading">Taj Krishna</p>
-                <p class="text-xl font-bold font-heading">Jewel of Nizam</p>
-                <p class="text-xl font-bold font-heading">Prost</p>
-                <p class="text-xl font-bold font-heading">Over The Moon</p>
+            <p class="text-gray-400 font-semibold mb-8 uppercase tracking-widest">Trusted By Hyderabad's Leading Restaurants & Hotels</p>
+            <div class="client-scroller">
+                <div class="client-list">
+                    <!-- Original List -->
+                    <p class="client-item text-xl font-bold font-heading opacity-60">ITC Kohenur</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Taj Krishna</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Jewel of Nizam</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Prost</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Over The Moon</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Paradise Biryani</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Ohri's</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Chutneys</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">The Fisherman's Wharf</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">SodaBottleOpenerWala</p>
+                    <!-- Duplicated List for seamless scroll -->
+                    <p class="client-item text-xl font-bold font-heading opacity-60">ITC Kohenur</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Taj Krishna</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Jewel of Nizam</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Prost</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Over The Moon</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Paradise Biryani</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Ohri's</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">Chutneys</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">The Fisherman's Wharf</p>
+                    <p class="client-item text-xl font-bold font-heading opacity-60">SodaBottleOpenerWala</p>
+                </div>
             </div>
         </div>
     </section>
@@ -233,7 +292,7 @@
     <section id="visual-menu" class="py-20">
         <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
             <div>
-                <h2 class="text-4xl font-bold text-white font-heading uppercase">Let Your Food <span class="text-gradient">Speak for Itelf</span></h2>
+                <h2 class="text-4xl font-bold text-white font-heading uppercase">Let Your Food <span class="text-gradient">Speak for Itself</span></h2>
                 <p class="text-gray-300 mt-4 mb-6 leading-relaxed">A traditional menu lists ingredients. A visual menu tells a story. With AuraMenu, you can showcase your culinary creations with stunning, professional photography and smart descriptions that entice the senses and encourage ordering.</p>
                 <ul class="space-y-3 text-gray-300">
                     <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i> Increase sales of high-margin items.</li>
@@ -242,7 +301,7 @@
                 </ul>
             </div>
             <div>
-                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2581&auto=format&fit=crop" alt="A beautiful pizza on a restaurant table" class="rounded-lg shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2581&auto=format&fit=crop" alt="A beautiful pizza on a restaurant table" class="rounded-lg shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/ffffff?text=Food+Image';">
             </div>
         </div>
     </section>
@@ -362,8 +421,47 @@
         </div>
     </section>
 
+    <!-- Careers Section -->
+    <section id="careers" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white font-heading uppercase">Join Our <span class="text-gradient">Team</span></h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">We're building the future of hospitality and looking for passionate individuals to join us on our mission.</p>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- Job Listing 1 -->
+                <div class="job-listing rounded-lg p-6 flex flex-col md:flex-row justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Senior Backend Engineer (Node.js)</h3>
+                        <p class="text-gray-400">Hyderabad, India (On-site)</p>
+                        <p class="text-gray-300 mt-2 text-sm">Design and build scalable APIs and services that power our entire platform, from POS transactions to AI features.</p>
+                    </div>
+                    <a href="#" class="cta-secondary text-white font-semibold py-2 px-5 rounded-lg mt-4 md:mt-0 shrink-0">Apply Now</a>
+                </div>
+                <!-- Job Listing 2 -->
+                <div class="job-listing rounded-lg p-6 flex flex-col md:flex-row justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Customer Success Manager</h3>
+                        <p class="text-gray-400">Hyderabad, India (Hybrid)</p>
+                        <p class="text-gray-300 mt-2 text-sm">Be the primary point of contact for our elite clients, ensuring they get the most value out of AuraMenu.</p>
+                    </div>
+                    <a href="#" class="cta-secondary text-white font-semibold py-2 px-5 rounded-lg mt-4 md:mt-0 shrink-0">Apply Now</a>
+                </div>
+                <!-- Job Listing 3 -->
+                <div class="job-listing rounded-lg p-6 flex flex-col md:flex-row justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">UI/UX Designer</h3>
+                        <p class="text-gray-400">Remote</p>
+                        <p class="text-gray-300 mt-2 text-sm">Craft intuitive and beautiful interfaces for our web and mobile applications, delighting both restaurant staff and their guests.</p>
+                    </div>
+                    <a href="#" class="cta-secondary text-white font-semibold py-2 px-5 rounded-lg mt-4 md:mt-0 shrink-0">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact / Demo Request Section -->
-    <section id="contact" class="py-20">
+    <section id="contact" class="py-20 bg-black/20">
         <div class="container mx-auto px-6">
             <div class="text-center">
                 <h2 class="text-4xl font-bold text-white font-heading uppercase">Ready to Upgrade Your Restaurant?</h2>
@@ -388,9 +486,74 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-6 border-t border-gray-800">
-        <div class="container mx-auto px-6 text-center text-gray-500">
-            <p>&copy; 2025 AuraMenu. All Rights Reserved.</p>
+    <footer class="bg-[#050508] border-t border-gray-800">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Top Section: Newsletter -->
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-white font-heading">Stay Ahead of the Curve</h2>
+                    <p class="text-gray-400 mt-2">Join our newsletter for the latest in restaurant tech, industry trends, and exclusive AuraMenu updates.</p>
+                </div>
+                <form class="flex w-full max-w-md ml-auto">
+                    <input type="email" placeholder="Enter your email address" class="w-full p-3 bg-[#111827] border border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-white">
+                    <button type="submit" class="cta-primary text-white font-bold py-3 px-6 rounded-r-lg text-lg shrink-0">Subscribe</button>
+                </form>
+            </div>
+    
+            <div class="border-t border-gray-800 my-8"></div>
+    
+            <!-- Bottom Section: Links & Info -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+                 <!-- About & Social -->
+                <div>
+                    <a href="#" class="text-3xl font-bold font-heading text-gradient mb-4 inline-block">AuraMenu</a>
+                    <p class="text-gray-400 text-sm mb-6 max-w-md mx-auto md:mx-0">The complete platform to elevate your restaurant's experience and profitability.</p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-x transition"><i data-lucide="x" class="w-5 h-5"></i></a>
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-instagram transition"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-youtube transition"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+                        <a href="#" target="_blank" class="text-gray-400 social-icon-linkedin transition"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                        <a href="https://wa.me/919618164408" target="_blank" class="text-gray-400 social-icon-whatsapp transition"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4 uppercase tracking-wider">Links</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#features" class="hover:text-pink-400 transition">Platform</a></li>
+                        <li><a href="#pricing" class="hover:text-pink-400 transition">Pricing</a></li>
+                        <li><a href="#careers" class="hover:text-pink-400 transition">Careers</a></li>
+                        <li><a href="#contact" class="hover:text-pink-400 transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Legal -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4 uppercase tracking-wider">Legal</h3>
+                     <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-pink-400 transition">Terms & Conditions</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-pink-400 transition">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                 <!-- Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4 uppercase tracking-wider">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i data-lucide="phone" class="w-4 h-4 mr-3 shrink-0"></i>
+                            <a href="tel:+919618164408" class="hover:text-pink-400 transition">+91 96181 64408</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 shrink-0"></i>
+                            <a href="mailto:info@auramenu.com" class="hover:text-pink-400 transition">info@auramenu.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 AuraMenu Technologies Pvt. Ltd. Hyderabad, India. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
@@ -398,7 +561,9 @@
         lucide.createIcons();
 
         // --- Gemini API Helper ---
-        const API_KEY = "";
+        // NOTE: An API key is required for the AI features to work.
+        // You can get a key from Google AI Studio.
+        const API_KEY = ""; // <-- PASTE YOUR GEMINI API KEY HERE
 
         async function callGeminiAPI(prompt, schema) {
             const payload = {
@@ -448,6 +613,12 @@
                 const output = document.getElementById(outputId);
                 
                 button.addEventListener('click', async () => {
+                    if (!API_KEY) {
+                        output.classList.remove('hidden');
+                        output.innerHTML = `<p class="text-yellow-400">Please add your Gemini API key to the script tag to use this feature.</p>`;
+                        return;
+                    }
+
                     const inputValues = inputs.map(id => document.getElementById(id).value);
                     if (inputs.length > 0 && inputValues.some(val => !val)) {
                         output.classList.remove('hidden');
